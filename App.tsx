@@ -2,6 +2,7 @@ import React from "react";
 import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components";
 
+import { StatusBar } from "react-native";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 
@@ -17,7 +18,8 @@ import theme from "./src/global/styles/theme";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutes } from "./src/routes/app.routes";
 
-import { Register } from "./src/screens/Register";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,11 +31,15 @@ export default function App() {
     return <AppLoading />;
   }
 
+  // AsyncStorage.removeItem("@gofinances:transactions");
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <StatusBar barStyle="light-content" />
+          <AppRoutes />
+        </NavigationContainer>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
